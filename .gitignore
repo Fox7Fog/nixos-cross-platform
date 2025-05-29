@@ -1,0 +1,25 @@
+# Nix build results
+result
+result-*
+
+# Direnv
+.direnv/
+
+# macOS
+.DS_Store
+
+# Secrets
+secrets/*.age
+!secrets/secrets.nix
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

@@ -11,8 +11,8 @@ sudo nixos-rebuild switch --flake .#F7F
 
 ### macOS
 ```bash
-darwin-rebuild switch --flake .#MacBook-Intel
-home-manager switch --flake .#fox7fog@MacBook-Intel
+darwin-rebuild switch --flake .#F7F-macOS
+home-manager switch --flake .#fox7fog@F7F-macOS
 ```
 
 ### Development Shells

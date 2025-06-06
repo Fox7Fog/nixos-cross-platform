@@ -3,6 +3,7 @@
 {
   imports = [
     ../../shared/desktop/linux/hyprland.nix
+    ../../shared/ssh.nix
   ];
 
   home.pointerCursor = {

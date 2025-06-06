@@ -13,4 +13,12 @@
 
   # Ensure the SSH agent is running
   services.ssh-agent.enable = true;
+
+  # Ensure SSH directory exists
+  home.file.".ssh/.keep" = {
+    text = "";
+  };
+  
+  # Note: SSH keys are now managed by sops-nix
+  # See /home/fox7fog/.dotfiles/nixos-cross-platform/modules/sops.nix
 }

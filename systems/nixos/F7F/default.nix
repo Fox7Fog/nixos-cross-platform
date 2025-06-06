@@ -1,12 +1,13 @@
 { config, pkgs, lib, inputs, ... }:
 
+let
+  sopsModulePath = ../../../../modules/sops.nix;
+in
 {
-
-
-
   imports = [
     ./hardware.nix
     ./services.nix
+    sopsModulePath
   ];
 
   # System identity
@@ -37,6 +38,7 @@
 
   # Core system packages (stable)
   environment.systemPackages = with pkgs; [
+    gnupg
     # Core utilities
     coreutils
     findutils

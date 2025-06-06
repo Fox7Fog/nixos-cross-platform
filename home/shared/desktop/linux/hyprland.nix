@@ -48,8 +48,9 @@
         blur = {
           enabled = false;
         };
-        drop_shadow = false;
         dim_inactive = false;
+        active_opacity = 1.0;
+        inactive_opacity = 1.0;
       };
       
       animations = {

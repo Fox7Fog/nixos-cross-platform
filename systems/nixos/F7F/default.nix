@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
     ./services.nix
+    ./sops.nix
     inputs.self.nixosModules.sops
   ];
 
@@ -37,6 +38,8 @@
   # Core system packages (stable)
   environment.systemPackages = with pkgs; [
     gnupg
+    sops
+    age
     # Core utilities
     coreutils
     findutils
@@ -60,6 +63,7 @@
     # Audio codecs and multimedia
     ffmpeg
 
+    # GStreamer packages
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good

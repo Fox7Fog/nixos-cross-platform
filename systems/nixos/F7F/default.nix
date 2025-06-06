@@ -1,6 +1,9 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
+
+
+
   imports = [
     ./hardware.nix
     ./services.nix
@@ -70,8 +73,24 @@
     
     # Network tools
     openssh
-    rsync
   ];
+
+  # SSH hardening: only allow login with a specific public key, disable password authentication
+  services.openssh = {
+    enable = true;
+    allowSFTP = false;
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
+    };
+    authorizedKeysFiles = [ "/etc/ssh/authorized_keys_only" ];
+    extraConfig = ''
+      # Only allow this sample key (replace with your real key)
+      # ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyoursamplekeyhere user@host
+    '';
+  };
+
+  # You must create /etc/ssh/authorized_keys_only and place your actual public key there.
 
   # NixOS state version
   system.stateVersion = "25.05";

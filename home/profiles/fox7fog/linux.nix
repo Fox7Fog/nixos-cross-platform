@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, unstable, ... }:
 
 {
   imports = [
@@ -14,62 +14,57 @@
   };
 
   # Linux-specific home configuration
-  home.packages = with pkgs; [
-    # Packages from unstable channel
-    (with unstable; [
-      # Development tools
-      windsurf
-      vscode
-      git
-      gh
-      docker-compose
-      nodejs_20
-      python3
-      
-      # Media and Graphics
-      mpv
-      vlc
-      gimp
-      inkscape
-      obs-studio
-      flameshot
+  home.packages = with unstable; [
+  # Development tools
+  windsurf
+  vscode
+  docker-compose
+  nodejs_20
+  python3
 
-      # Communication
-      discord
-      telegram-desktop
-      thunderbird
+  # Media and Graphics
+  mpv
+  vlc
+  gimp
+  inkscape
+  obs-studio
+  flameshot
 
-      # System and Utilities
-      htop
-      neofetch
-      wget
-      curl
-      unzip
-      zip
-      ripgrep
-      fd
-      fzf
-      bat
-      eza
-      btop
-      gparted
-      pavucontrol
-      blueman
+  # Communication
+  discord
+  telegram-desktop
+  thunderbird
 
-      # File Management
-      ranger
-      pcmanfm
-      xfce.thunar
+  # System and Utilities
+  htop
+  neofetch
+  wget
+  curl
+  unzip
+  zip
+  ripgrep
+  fd
+  fzf
+  bat
+  btop
+  gparted
+  pavucontrol
+  blueman
 
-      # Browsers
-      firefox
-      google-chrome
+  # File Management
+  ranger
+  pcmanfm
+  xfce.thunar
 
-      # Office and Documents
-      libreoffice
-      evince
-    ])
-  ];
+  # Browsers
+  google-chrome
+  brave
+  cosmic-files
+
+  # Office and Documents
+  libreoffice
+  evince
+];
 
   # Linux-specific session variables
   home.sessionVariables = {

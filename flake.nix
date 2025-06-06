@@ -4,12 +4,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
+
+    # Utilities
+    flake-utils.url = "github:numtide/flake-utils";
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
 
     # Development environments
     devenv = {
@@ -18,17 +20,21 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, devenv, ... }@inputs:
+  nixConfig = {
+    allowUnfree = true;
+  };
+
+  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, devenv, ... }@inputs:
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // import ./lib { inherit inputs; };
       
       systems = [ "x86_64-linux" ];
       
-      # Generate packages for each system
+      # Generate packages for each system using lib.genAttrs
       forAllSystems = nixpkgs.lib.genAttrs systems;
       
-      # Import overlays
+      # Import overlays (cleaned: removed no-op brave overlay)
       overlays = import ./overlays { inherit inputs; };
       
       # Generate pkgs with overlays for each system
@@ -39,8 +45,7 @@
       });
       
     in {
-      # Custom packages
-      # packages = forAllSystems (system: import ./pkgs { pkgs = pkgsFor.${system}; });  # commented out, pkgs directory does not exist
+      # Custom packages (uncomment and implement ./pkgs when ready)
       
       # Overlays
       overlays = overlays;
@@ -52,6 +57,8 @@
           system = "x86_64-linux";
           users = [ "fox7fog" ];
           pkgs = pkgsFor."x86_64-linux";
+          flakeRoot = self;
+
         };
       };
       
@@ -63,6 +70,10 @@
           system = "x86_64-linux";
           pkgs = pkgsFor."x86_64-linux";
           desktop = "hyprland";
+          unstable = import nixpkgs-unstable {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
         };
       };
       

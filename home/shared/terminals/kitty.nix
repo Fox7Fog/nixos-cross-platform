@@ -3,11 +3,11 @@
 {
   programs.kitty = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then pkgs.unstable.kitty else pkgs.kitty;
+    package = pkgs.kitty;
     
     font = {
       name = "JetBrainsMono Nerd Font";
-      size = if pkgs.stdenv.isDarwin then 14 else 12;
+      size = 12;
     };
     
     settings = {
@@ -29,7 +29,7 @@
       
       # Window
       window_padding_width = 8;
-      hide_window_decorations = if pkgs.stdenv.isDarwin then "titlebar-only" else "no";
+      hide_window_decorations = "no";
       
       # Tab bar
       tab_bar_style = "powerline";
@@ -37,10 +37,8 @@
     };
     
     keybindings = {
-      "cmd+t" = lib.mkIf pkgs.stdenv.isDarwin "new_tab";
-      "cmd+w" = lib.mkIf pkgs.stdenv.isDarwin "close_tab";
-      "ctrl+shift+t" = lib.mkIf pkgs.stdenv.isLinux "new_tab";
-      "ctrl+shift+w" = lib.mkIf pkgs.stdenv.isLinux "close_tab";
+      "ctrl+shift+t" = "new_tab";
+      "ctrl+shift+w" = "close_tab";
     };
   };
 }

@@ -3,15 +3,17 @@
 {
   services.mako = {
     enable = true;
-    defaultTimeout = 5000;
-    borderSize = 2;
-    borderRadius = 5;
-    padding = "5,10";
-    layer = "overlay";
-    anchor = "top-right";
-    backgroundColor = "#1e1e2ecc";
-    borderColor = "#cba6f7aa";
-    textColor = "#cdd6f4";
+    settings = {
+      default-timeout = 5000;
+      border-size = 2;
+      border-radius = 5;
+      padding = "5,10";
+      layer = "overlay";
+      anchor = "top-right";
+      background-color = "#1e1e2ecc";
+      border-color = "#cba6f7aa";
+      text-color = "#cdd6f4";
+    };
     
     extraConfig = ''
       [urgency=high]

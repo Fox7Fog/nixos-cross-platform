@@ -3,7 +3,7 @@
 {
   programs.neovim = {
     enable = true;
-    package = if pkgs.stdenv.isDarwin then pkgs.neovim else pkgs.unstable.neovim;
+    # package = pkgs.neovim;
     
     defaultEditor = true;
     viAlias = true;

@@ -1,8 +1,8 @@
 {
-  description = "Cross-Platform Nix Configuration (NixOS + macOS)";
+  description = "NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     
     home-manager = {
@@ -10,10 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Development environments
     devenv = {
@@ -22,12 +18,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nix-darwin, devenv, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, devenv, ... }@inputs:
     let
       inherit (self) outputs;
-      lib = nixpkgs.lib // import ./lib { inherit inputs outputs; };
+      lib = nixpkgs.lib // import ./lib { inherit inputs; };
       
-      systems = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      systems = [ "x86_64-linux" ];
       
       # Generate packages for each system
       forAllSystems = nixpkgs.lib.genAttrs systems;
@@ -44,7 +40,7 @@
       
     in {
       # Custom packages
-      packages = forAllSystems (system: import ./pkgs { pkgs = pkgsFor.${system}; });
+      # packages = forAllSystems (system: import ./pkgs { pkgs = pkgsFor.${system}; });  # commented out, pkgs directory does not exist
       
       # Overlays
       overlays = overlays;
@@ -59,15 +55,6 @@
         };
       };
       
-      # Darwin configurations
-      darwinConfigurations = {
-        MacBook-Intel = lib.mkDarwinSystem {
-          hostname = "MacBook-Intel";
-          system = "x86_64-darwin";
-          users = [ "fox7fog" ];
-          pkgs = pkgsFor."x86_64-darwin";
-        };
-      };
       
       # Home Manager configurations
       homeConfigurations = {
@@ -76,12 +63,6 @@
           system = "x86_64-linux";
           pkgs = pkgsFor."x86_64-linux";
           desktop = "hyprland";
-        };
-        "fox7fog@MacBook-Intel" = lib.mkHome {
-          username = "fox7fog";
-          system = "x86_64-darwin";
-          pkgs = pkgsFor."x86_64-darwin";
-          desktop = "darwin";
         };
       };
       

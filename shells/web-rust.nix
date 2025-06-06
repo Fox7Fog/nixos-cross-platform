@@ -21,7 +21,7 @@ pkgs.mkShell {
     
     # Node.js for frontend tooling
     nodejs
-    npm
+    nodejs.pkgs.npm
     
     # Development utilities
     jq

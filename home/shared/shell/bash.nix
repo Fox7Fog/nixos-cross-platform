@@ -10,11 +10,6 @@
       export EDITOR=nvim
       
       # Platform-specific settings
-      ${lib.optionalString pkgs.stdenv.isDarwin ''
-        # macOS-specific bash settings
-        export PATH="/opt/homebrew/bin:$PATH"
-      ''}
-      
       ${lib.optionalString pkgs.stdenv.isLinux ''
         # Linux-specific bash settings
         # Wayland clipboard integration

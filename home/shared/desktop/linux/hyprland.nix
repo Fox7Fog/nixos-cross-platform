@@ -16,9 +16,9 @@
       exec-once = [
         "hyprpaper"
         "waybar"
-        "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1"
+        "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
         "wl-paste --watch cliphist store"
-        "swayidle -w timeout 300 'swaylock -f' timeout 600 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'"
+
       ];
       
       input = {
@@ -28,6 +28,12 @@
         sensitivity = 0;
       };
       
+      # Set COSMIC cursor theme globally for Hyprland
+      env = [
+        "XCURSOR_THEME,Cosmic"
+        "XCURSOR_SIZE,24"
+      ];
+
       general = {
         gaps_in = 5;
         gaps_out = 10;
@@ -44,10 +50,8 @@
           size = 3;
           passes = 2;
         };
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        # Removed deprecated drop_shadow, shadow_range, shadow_render_power, col.shadow options (no longer supported in recent Hyprland)
+        # Shadows are now handled differently or via theme/other settings. See Hyprland wiki for up-to-date options.
       };
       
       animations = {
@@ -158,7 +162,7 @@
     slurp
     pavucontrol
     brightnessctl
-    polkit-kde-agent
+    kdePackages.polkit-kde-agent-1
     libnotify
   ];
 }

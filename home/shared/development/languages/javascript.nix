@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # Node.js (stable)
     nodejs
-    npm
+    nodejs.pkgs.npm
     yarn
     
     # TypeScript

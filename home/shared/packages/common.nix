@@ -28,6 +28,7 @@
     tree
     
     # Fonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" ]; })
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.fira-code
   ];
 }

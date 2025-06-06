@@ -1,10 +1,14 @@
-{ inputs, outputs, lib }:
+{ inputs, lib }:
 
-{ username, system, pkgs, desktop ? null }:
+{ username, system, pkgs }:
 
-inputs.home-manager.lib.homeManagerConfiguration {
+let
+  cleanInputs = builtins.removeAttrs inputs [ "self" ];
+
+in inputs.home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
-  extraSpecialArgs = { inherit inputs outputs desktop; };
+  specialArgs = { };
+  extraSpecialArgs = { inherit cleanInputs; inputs = cleanInputs; };
   modules = [
     ../home/profiles/${username}
   ];

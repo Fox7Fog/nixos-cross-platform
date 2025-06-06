@@ -1,10 +1,11 @@
-{ inputs, outputs, lib }:
+{ inputs, lib }:
 
 { hostname, system, users, pkgs }:
 
 inputs.nixpkgs.lib.nixosSystem {
+  inherit pkgs;
   inherit system;
-  specialArgs = { inherit inputs outputs; };
+  specialArgs = { inherit inputs; };
   modules = [
     ../systems/nixos/${hostname}
     ../systems/nixos/common
@@ -14,7 +15,7 @@ inputs.nixpkgs.lib.nixosSystem {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        extraSpecialArgs = { inherit inputs outputs; };
+        extraSpecialArgs = { inherit inputs; };
         users = lib.genAttrs users (user: {
           imports = [ ../home/profiles/${user} ];
         });

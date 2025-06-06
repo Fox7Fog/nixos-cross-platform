@@ -19,8 +19,7 @@
     nrt = "sudo nixos-rebuild test --flake .";
     hms = "home-manager switch --flake .";
     
-    # Darwin aliases (macOS)
-    drs = lib.mkIf pkgs.stdenv.isDarwin "darwin-rebuild switch --flake .";
+    # Removed macOS alias; Linux only
     
     # Development shells
     dev-eth = "nix develop .#ethereum";

@@ -19,7 +19,7 @@ pkgs.mkShell {
     
     # Node.js for client development
     nodejs
-    npm
+    nodejs.pkgs.npm
     
     # Development utilities
     jq

@@ -1,22 +1,74 @@
-{ config, pkgs, lib, desktop ? null, ... }:
+{ config, pkgs, lib, ... }:
 
 {
-  imports = lib.optionals (desktop == "hyprland") [
+  imports = [
     ../../shared/desktop/linux/hyprland.nix
   ];
 
+  home.pointerCursor = {
+    package = lib.mkForce pkgs.bibata-cursors;
+    name = lib.mkForce "Bibata-Original-Classic";
+    size = lib.mkForce 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
   # Linux-specific home configuration
   home.packages = with pkgs; [
-    # Development tools (unstable for latest features)
-    unstable.windsurf
-    unstable.windsurf-next
-    
-    # Media players (unstable for latest codecs)
-    unstable.mpv
-    unstable.vlc
-    
-    # System tools
-    unstable.docker-compose
+    # Packages from unstable channel
+    (with unstable; [
+      # Development tools
+      windsurf
+      vscode
+      git
+      gh
+      docker-compose
+      nodejs_20
+      python3
+      
+      # Media and Graphics
+      mpv
+      vlc
+      gimp
+      inkscape
+      obs-studio
+      flameshot
+
+      # Communication
+      discord
+      telegram-desktop
+      thunderbird
+
+      # System and Utilities
+      htop
+      neofetch
+      wget
+      curl
+      unzip
+      zip
+      ripgrep
+      fd
+      fzf
+      bat
+      eza
+      btop
+      gparted
+      pavucontrol
+      blueman
+
+      # File Management
+      ranger
+      pcmanfm
+      xfce.thunar
+
+      # Browsers
+      firefox
+      google-chrome
+
+      # Office and Documents
+      libreoffice
+      evince
+    ])
   ];
 
   # Linux-specific session variables

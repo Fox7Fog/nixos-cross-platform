@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, outputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -56,7 +56,7 @@
     
     # Audio codecs and multimedia
     ffmpeg
-    gstreamer
+
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
@@ -74,5 +74,5 @@
   ];
 
   # NixOS state version
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }

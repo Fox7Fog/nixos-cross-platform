@@ -6,13 +6,13 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     # Node.js and TypeScript
     nodejs
-    npm
-    yarn
+    nodejs.pkgs.npm
+    nodejs.pkgs.yarn
     typescript
     
     # Ethereum development tools
-    nodePackages.truffle
-    nodePackages.ganache-cli
+    # Note: Install truffle and ganache via npm in your project:
+    # npm install -g truffle ganache
     
     # Rust tools for Ethereum
     rustc

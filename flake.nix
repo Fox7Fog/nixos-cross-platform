@@ -13,6 +13,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Secret management
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Development environments
     devenv = {
       url = "github:cachix/devenv";
@@ -24,7 +30,7 @@
     allowUnfree = true;
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, devenv, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, flake-utils, home-manager, sops-nix, devenv, ... }@inputs:
     let
       inherit (self) outputs;
       lib = nixpkgs.lib // import ./lib { inherit inputs; };
@@ -45,6 +51,7 @@
       });
       
     in {
+      nixosModules.sops = ./modules/sops.nix;
       # Custom packages (uncomment and implement ./pkgs when ready)
       
       # Overlays

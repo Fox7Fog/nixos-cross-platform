@@ -1,14 +1,12 @@
 { config, pkgs, lib, inputs, ... }:
 
-let
-  sopsModulePath = ../../../../modules/sops.nix;
-in
 {
   imports = [
     ./hardware.nix
     ./services.nix
-    sopsModulePath
+    inputs.self.nixosModules.sops
   ];
+
 
   # System identity
   networking.hostName = "F7F";

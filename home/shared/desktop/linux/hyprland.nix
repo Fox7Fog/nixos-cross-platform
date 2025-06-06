@@ -46,12 +46,10 @@
       decoration = {
         rounding = 10;
         blur = {
-          enabled = true;
-          size = 3;
-          passes = 2;
+          enabled = false;
         };
-        # Removed deprecated drop_shadow, shadow_range, shadow_render_power, col.shadow options (no longer supported in recent Hyprland)
-        # Shadows are now handled differently or via theme/other settings. See Hyprland wiki for up-to-date options.
+        drop_shadow = false;
+        dim_inactive = false;
       };
       
       animations = {

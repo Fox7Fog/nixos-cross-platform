@@ -23,4 +23,12 @@
     # package = null; # No package set, will use system or manually installed cursor theme
   };
 
+  # Configure virt-manager connection settings
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
+  };
+
 }

@@ -77,6 +77,7 @@
     
     # Network tools
     openssh
+    rustdesk
   ];
 
   # SSH hardening: only allow login with a specific public key, disable password authentication

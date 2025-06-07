@@ -6,19 +6,38 @@
     ./mako.nix
   ];
 
+  home.sessionVariables = {
+    # Required for NVIDIA on Hyprland
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    WLR_RENDERER = "vulkan";
+    GBM_BACKEND = "nvidia-drm";
+    LIBVA_DRIVER_NAME = "nvidia";
+    QT_QPA_PLATFORM = "wayland";
+    QT_QPA_PLATFORMTHEME = "qt6ct";
+    QT6CT_PLATFORMTHEME = "qt6ct";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.unstable.hyprland;
     
     settings = {
-      monitor = ",preferred,auto,1";
+      monitor = [
+          # 100% scale
+          "eDP-1,1920x1080@60,0x0,1"
+          "DP-1,1920x1080@74.97,1920x0,1"
+          # Uncomment below for 125% scale
+          # "eDP-1,1920x1080@60,0x0,1.25"
+          # "DP-1,1920x1080@74.97,1920x0,1.25"
+        ];
       
       exec-once = [
         "hyprpaper"
         "waybar"
         "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1"
         "wl-paste --watch cliphist store"
-
       ];
       
       input = {
@@ -83,12 +102,14 @@
       "$mainMod" = "SUPER";
       
       bind = [
-        "$mainMod, E, exec, ${pkgs.kitty}/bin/kitty"
-        "$mainMod, D, exec, ${pkgs.wofi}/bin/wofi --show drun"
-        "$mainMod, B, exec, ${pkgs.firefox}/bin/firefox"
+        "$mainMod, RETURN, exec, ${pkgs.alacritty}/bin/alacritty"
+        "$mainMod, SPACE, exec, ${pkgs.wofi}/bin/wofi --show drun"
+        "$mainMod, B, exec, ${pkgs.brave}/bin/brave"
+        "$mainMod, E, exec, ${pkgs.cosmic-files}/bin/cosmic-files"
         "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod, F, togglefloating,"
+        "$mainMod SHIFT, M, exit,"
+        "$mainMod, F, fullscreen,"
+        "$mainMod, V, togglefloating,"
         "$mainMod, P, pseudo,"
         "$mainMod, J, togglesplit,"
         
@@ -163,5 +184,7 @@
     brightnessctl
     kdePackages.polkit-kde-agent-1
     libnotify
+    qt6.qtbase
+    qt6ct
   ];
 }

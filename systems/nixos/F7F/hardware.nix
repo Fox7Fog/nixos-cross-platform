@@ -7,24 +7,28 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" ];
   # Load i915 later in the boot process to avoid Wayland cursor glitches
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  # Kernel modules for KVM and VFIO
+  boot.kernelModules = [ 
+    "kvm-intel"
+    "vfio-pci"
+    "vfio"
+    "vfio_iommu_type1"
+    "vfio_virqfd"
+  ];
   boot.extraModulePackages = [ ];
-  # Disable Panel Self Refresh (PSR) which is known to cause cursor issues on some Intel GPUs
-  boot.kernelParams = [ "i915.enable_psr=0" ];
+  # Kernel parameters for IOMMU and graphics
+  boot.kernelParams = [ 
+    "i915.enable_psr=0"
+    "intel_iommu=on"
+    "iommu=pt"
+  ];
+  # KVM settings
+  boot.extraModprobeConfig = ''
+    options kvm ignore_msrs=1
+    options kvm-intel nested=1  # Enable nested virtualization
+  '';
 
   # Filesystems with optimized settings
-
-#  fileSystems."/" =
-#    { device = "/dev/disk/by-uuid/c5d27bfd-1e9c-4e7a-8c0b-c10771c16084";
-#      fsType = "btrfs";
-#      options = [ "subvol=@" ];
-#    };
-#
-#  fileSystems."/boot" =
-#    { device = "/dev/disk/by-uuid/CAB0-777D";
-#      fsType = "vfat";
-#    };
-
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXROOT";
     fsType = "btrfs";

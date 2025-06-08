@@ -28,5 +28,8 @@
   # Ensure state version is set, can also be in common default.nix
   home.stateVersion = "25.05"; # Or your desired state version
 
+  # Enable Zsh management by Home Manager
+  programs.zsh.enable = true;
+
   # programs.home-manager.enable is already true in common default.nix
 }

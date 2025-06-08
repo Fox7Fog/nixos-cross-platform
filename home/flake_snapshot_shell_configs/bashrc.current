@@ -1,0 +1,48 @@
+# Set default editor
+export EDITOR=nvim
+
+# Platform-specific settings
+
+
+
+# Commands that should be applied only for interactive shells.
+[[ $- == *i* ]] || return
+
+HISTCONTROL=ignoredups:ignorespace
+HISTFILESIZE=100000
+HISTSIZE=10000
+
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s extglob
+shopt -s globstar
+shopt -s checkjobs
+
+alias dev-eth='nix develop .#ethereum'
+alias dev-go='nix develop .#go'
+alias dev-py='nix develop .#python'
+alias dev-rust='nix develop .#web-rust'
+alias dev-sol='nix develop .#solana'
+alias ga='git add'
+alias gc='git commit'
+alias gl='git log --oneline'
+alias gp='git push'
+alias gs='git status'
+alias hms='home-manager switch --flake .'
+alias l='ls -l'
+alias la='ls -la'
+alias ll='ls -la'
+alias nrs='sudo nixos-rebuild switch --flake .'
+alias nrt='sudo nixos-rebuild test --flake .'
+
+if [[ ! -v BASH_COMPLETION_VERSINFO ]]; then
+  . "/nix/store/24azqdf6f6iy148r3a5ynzfd855v7p4p-bash-completion-2.16.0/etc/profile.d/bash_completion.sh"
+fi
+
+if test -n "$KITTY_INSTALLATION_DIR"; then
+  export KITTY_SHELL_INTEGRATION="no-rc"
+  source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"
+fi
+
+eval "$(/nix/store/mphpm6ikdab03kai7h3rvl3z0qxsf6g1-direnv-2.36.0/bin/direnv hook bash)"
+

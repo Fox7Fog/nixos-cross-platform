@@ -1,34 +1,27 @@
 { inputs, lib, config, pkgs, desktop ? null, ... }:
 
 {
-  imports = [
-    ../../shared
-    ./linux.nix
-  ];
-
   home = {
     username = "fox7fog";
-    homeDirectory = "/home/fox7fog";
     stateVersion = "25.05";
+    # Set homeDirectory based on the OS, ensuring it's defined early.
+    homeDirectory = if pkgs.stdenv.isDarwin then "/Users/fox7fog"
+                    else if pkgs.stdenv.isLinux then "/home/fox7fog"
+                    else throw "Unsupported OS for home.homeDirectory definition";
   };
+
+  imports = [
+    ../../shared
+  ];
 
   programs.home-manager.enable = true;
   home.enableNixpkgsReleaseCheck = false;
 
-  # Set COSMIC cursor theme globally
-  home.pointerCursor = {
-    name = "Cosmic";
-    size = 24;
-    # Uncomment and set the correct package if available in pkgs
-    # package = null; # No package set, will use system or manually installed cursor theme
+  # Direnv configuration to ensure .envrc files are used
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true; # Enables 'use flake' and other Nix-specific direnv functions
   };
 
-  # Configure virt-manager connection settings
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
-    };
-  };
-
+  # Neovim Configuration is now handled in home/shared/editors/neovim/default.nix
 }

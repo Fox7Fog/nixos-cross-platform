@@ -4,15 +4,51 @@
   imports = [
     ../../shared/desktop/linux/hyprland.nix
     ../../shared/ssh.nix
+    ../../shared/hyprland.nix
   ];
 
   home.pointerCursor = {
-    # package = lib.mkForce pkgs.bibata-cursors;
     package = lib.mkForce pkgs.adwaita-icon-theme;
     name = lib.mkForce "Adwaita";
     size = lib.mkForce 24;
     gtk.enable = true;
     x11.enable = true;
+    # Ensure this is comprehensive for your Linux setup
+  };
+
+  # Configure virt-manager connection settings (moved from default.nix)
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
+    };
+  };
+
+  # Enable dconf (required for GTK theme settings)
+  dconf.enable = true;
+
+  # GTK theme settings
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
+  };
+
+  # QT theme settings
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+    style.name = "adwaita-dark";
   };
 
   # Linux-specific home configuration
@@ -83,5 +119,8 @@
     QT_QPA_PLATFORMTHEME= "qt6ct";
     QT6CT_PLATFORMTHEME= "qt6ct";
     QT_WAYLAND_DISABLE_WINDOWDECORATION= "1";
+    EDITOR = "nvim";
+    TERMINAL = "kitty";
+    BROWSER = "firefox";
   };
 }

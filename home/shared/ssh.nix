@@ -1,10 +1,18 @@
 { config, lib, ... }: {
   programs.ssh = {
     enable = true;
+    # Specifies the SSH identity file to be used for authentication.
+    # Ensure this key exists or is generated.
+    identityFile = "~/.ssh/id_ed25519";
     addKeysToAgent = "yes";
     matchBlocks = {
       "github.com" = {
-        identityFile = "~/.ssh/ed_25519_fox7fog";
+        # identityFile = "~/.ssh/ed_25519_username"; # Removed to use global
+        identitiesOnly = true;
+        user = "git";
+      };
+      "gitlab.com" = {
+        # identityFile = "~/.ssh/id_ed25519"; # Example, if needed
         identitiesOnly = true;
         user = "git";
       };
@@ -19,6 +27,4 @@
     text = "";
   };
   
-  # Note: SSH keys are now managed by sops-nix
-  # See /home/fox7fog/.dotfiles/nixos-cross-platform/modules/sops.nix
 }

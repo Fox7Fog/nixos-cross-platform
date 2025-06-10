@@ -66,6 +66,27 @@
           pkgs = pkgsFor."x86_64-linux";
           flakeRoot = self;
         };
+        "dell-optiplex" = lib.mkNixosSystem {
+          hostname = "dell-optiplex";
+          system = "x86_64-linux";
+          users = [ "fox7fog" ];
+          pkgs = pkgsFor."x86_64-linux";
+          flakeRoot = self;
+        };
+        "thinkpad-x201" = lib.mkNixosSystem {
+          hostname = "thinkpad-x201";
+          system = "x86_64-linux";
+          users = [ "fox7fog" ];
+          pkgs = pkgsFor."x86_64-linux";
+          flakeRoot = self;
+        };
+        "hp-microserver" = lib.mkNixosSystem {
+          hostname = "hp-microserver";
+          system = "x86_64-linux";
+          users = [ "fox7fog" ];
+          pkgs = pkgsFor."x86_64-linux";
+          flakeRoot = self;
+        };
       };
       
       

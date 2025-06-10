@@ -62,4 +62,13 @@
       typescript-nvim
     ];
   };
+
+  # Link the nvim configuration files (init.lua, lua/, etc.)
+  # to ~/.config/nvim
+  # Assumes your nvim configuration files are now located in
+  # <flake-root>/home/shared/config/nvim/
+  xdg.configFile."nvim" = {
+    source = ../../config/nvim; # Relative path from this file
+    recursive = true; # Ensure the whole directory is linked
+  };
 }

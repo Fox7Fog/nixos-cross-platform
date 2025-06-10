@@ -20,6 +20,7 @@
     # mactex
     # skhd
     # yabai
+    llvm
   ];
 
   # macOS-specific settings

@@ -43,6 +43,15 @@
 
   swapDevices = [ ];
 
+  # Bootloader configuration for OpenCore dual-boot
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi = {
+      canTouchEfiVariables = false; # Prevent NixOS from managing UEFI boot variables
+      efiSysMountPoint = "/boot";   # Explicitly set ESP mount point for bootloader
+    };
+  };
+
   # Graphics - Hybrid Intel/NVIDIA setup
   services.xserver.videoDrivers = [ "nvidia" ];
 

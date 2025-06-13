@@ -58,8 +58,8 @@
       cmp_luasnip
       
       # Language support
-      rust-tools-nvim
-      typescript-nvim
+      rustaceanvim
+      typescript-tools-nvim
     ];
   };
 

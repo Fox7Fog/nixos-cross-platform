@@ -19,5 +19,9 @@
     # Debugging
     gdb
     lldb
+
+    # Languages
+    php
+
   ];
 }

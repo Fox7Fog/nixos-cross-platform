@@ -1,3 +1,6 @@
+shellHook = ''
+  alias nxc-dev='nix develop ~/nixos-cross-platform'
+'';
 { pkgs }:
 
 pkgs.mkShell {
@@ -9,10 +12,6 @@ pkgs.mkShell {
     nodejs.pkgs.npm
     nodejs.pkgs.yarn
     typescript
-    
-    # Ethereum development tools
-    # Note: Install truffle and ganache via npm in your project:
-    # npm install -g truffle ganache
     
     # Rust tools for Ethereum
     rustc
@@ -30,7 +29,11 @@ pkgs.mkShell {
   ];
   
   shellHook = ''
-    echo "🚀 Ethereum Development Environment"
+    # Set up environment for Ethereum development
+    export NIX_SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    export SSL_CERT_FILE="$NIX_SSL_CERT_FILE"
+    export CARGO_HTTP_CAINFO="$NIX_SSL_CERT_FILE"
+    echo "⛓️  Ethereum Development Shell"
     echo "Available tools:"
     echo "  - Node.js $(node --version)"
     echo "  - TypeScript $(tsc --version)"

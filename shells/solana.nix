@@ -1,3 +1,6 @@
+shellHook = ''
+  alias nxc-dev='nix develop ~/nixos-cross-platform'
+'';
 { pkgs }:
 
 pkgs.mkShell {
@@ -9,6 +12,7 @@ pkgs.mkShell {
     cargo
     rustfmt
     clippy
+    lld
     
     # Solana CLI tools
     solana-cli
@@ -42,6 +46,9 @@ pkgs.mkShell {
     echo "  anchor init my-project           # Initialize Anchor project"
     
     # Set up Solana environment
+    export NIX_SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    export SSL_CERT_FILE="$NIX_SSL_CERT_FILE"
+    export CARGO_HTTP_CAINFO="$NIX_SSL_CERT_FILE"
     export SOLANA_CLUSTER="devnet"
     export RUST_LOG="solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=debug,solana_bpf_loader=debug,solana_rbpf=debug"
   '';

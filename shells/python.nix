@@ -1,3 +1,6 @@
+shellHook = ''
+  alias nxc-dev='nix develop ~/nixos-cross-platform'
+'';
 { pkgs }:
 
 pkgs.mkShell {
@@ -32,6 +35,10 @@ pkgs.mkShell {
   ];
   
   shellHook = ''
+    # Set up environment for Python development
+    export NIX_SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    export SSL_CERT_FILE="$NIX_SSL_CERT_FILE"
+    export CARGO_HTTP_CAINFO="$NIX_SSL_CERT_FILE"
     echo "🐍 Python Development Environment"
     echo "Available tools:"
     echo "  - Python $(python --version)"

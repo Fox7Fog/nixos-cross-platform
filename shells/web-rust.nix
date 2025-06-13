@@ -13,6 +13,7 @@ pkgs.mkShell {
     # Web development tools
     trunk  # WASM web application bundler
     wasm-pack
+    lld
     
     # Additional Rust tools
     cargo-watch
@@ -47,6 +48,12 @@ pkgs.mkShell {
     rustup target add wasm32-unknown-unknown
     
     # Set up environment
+    export NIX_SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    export SSL_CERT_FILE="$NIX_SSL_CERT_FILE"
+    export CARGO_HTTP_CAINFO="$NIX_SSL_CERT_FILE"
     export RUST_LOG="debug"
+
+    # Make nxc-dev available in the devShell
+    alias nxc-dev='nix develop ~/nixos-cross-platform'
   '';
 }

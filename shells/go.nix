@@ -1,6 +1,3 @@
-shellHook = ''
-  alias nxc-dev='nix develop ~/nixos-cross-platform'
-'';
 { pkgs }:
 
 pkgs.mkShell {
@@ -51,5 +48,7 @@ pkgs.mkShell {
     # Set up Go environment
     export GOPATH="$HOME/go"
     export PATH="$GOPATH/bin:$PATH"
+    # Make nxc-dev available in the devShell
+    alias nxc-dev='nix develop ~/nixos-cross-platform'
   '';
 }

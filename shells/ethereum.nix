@@ -1,6 +1,3 @@
-shellHook = ''
-  alias nxc-dev='nix develop ~/nixos-cross-platform'
-'';
 { pkgs }:
 
 pkgs.mkShell {
@@ -48,5 +45,7 @@ pkgs.mkShell {
     # Set up environment variables
     export ETH_RPC_URL="http://localhost:8545"
     export CHAIN_ID="1337"
+    # Make nxc-dev available in the devShell
+    alias nxc-dev='nix develop ~/nixos-cross-platform'
   '';
 }

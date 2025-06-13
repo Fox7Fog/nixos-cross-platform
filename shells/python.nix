@@ -1,6 +1,3 @@
-shellHook = ''
-  alias nxc-dev='nix develop ~/nixos-cross-platform'
-'';
 { pkgs }:
 
 pkgs.mkShell {
@@ -54,5 +51,7 @@ pkgs.mkShell {
     
     # Set up Python environment
     export PYTHONPATH="$PWD:$PYTHONPATH"
+    # Make nxc-dev available in the devShell
+    alias nxc-dev='nix develop ~/nixos-cross-platform'
   '';
 }

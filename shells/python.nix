@@ -51,7 +51,7 @@ pkgs.mkShell {
     
     # Set up Python environment
     export PYTHONPATH="$PWD:$PYTHONPATH"
-    # Make nxc-dev available in the devShell
-    alias nxc-dev='nix develop ~/nixos-cross-platform'
+    # Make nxc-dev available in the devShell as a script in PATH
+    export PATH="${toString ../scripts}:$PATH"
   '';
 }

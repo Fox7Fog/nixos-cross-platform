@@ -53,7 +53,7 @@ pkgs.mkShell {
     export CARGO_HTTP_CAINFO="$NIX_SSL_CERT_FILE"
     export RUST_LOG="debug"
 
-    # Make nxc-dev available in the devShell
-    alias nxc-dev='nix develop ~/nixos-cross-platform'
+    # Make nxc-dev available in the devShell as a script in PATH
+    export PATH="${toString ../scripts}:$PATH"
   '';
 }

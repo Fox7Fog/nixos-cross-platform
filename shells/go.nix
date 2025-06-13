@@ -48,7 +48,7 @@ pkgs.mkShell {
     # Set up Go environment
     export GOPATH="$HOME/go"
     export PATH="$GOPATH/bin:$PATH"
-    # Make nxc-dev available in the devShell
-    alias nxc-dev='nix develop ~/nixos-cross-platform'
+    # Make nxc-dev available in the devShell as a script in PATH
+    export PATH="${toString ../scripts}:$PATH"
   '';
 }

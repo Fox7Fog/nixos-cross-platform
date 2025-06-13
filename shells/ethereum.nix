@@ -45,7 +45,7 @@ pkgs.mkShell {
     # Set up environment variables
     export ETH_RPC_URL="http://localhost:8545"
     export CHAIN_ID="1337"
-    # Make nxc-dev available in the devShell
-    alias nxc-dev='nix develop ~/nixos-cross-platform'
+    # Make nxc-dev available in the devShell as a script in PATH
+    export PATH="${toString ../scripts}:$PATH"
   '';
 }

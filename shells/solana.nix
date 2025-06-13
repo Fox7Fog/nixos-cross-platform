@@ -48,7 +48,7 @@ pkgs.mkShell {
     export CARGO_HTTP_CAINFO="$NIX_SSL_CERT_FILE"
     export SOLANA_CLUSTER="devnet"
     export RUST_LOG="solana_runtime::system_instruction_processor=trace,solana_runtime::message_processor=debug,solana_bpf_loader=debug,solana_rbpf=debug"
-    # Make nxc-dev available in the devShell
-    alias nxc-dev='nix develop ~/nixos-cross-platform'
+    # Make nxc-dev available in the devShell as a script in PATH
+    export PATH="${toString ../scripts}:$PATH"
   '';
 }

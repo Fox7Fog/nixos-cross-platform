@@ -26,7 +26,7 @@
     pname = "setup-dev-shells";
     version = "0.1.0"; # You can update this version as needed
     src = ./setup_dev_shells_go;
-    vendorHash = ""; # Nix will prompt for the correct hash on first build if needed
+    vendorHash = null; # No dependencies for this module
     # The module path is github.com/fox7fog/nixos-cross-platform/setup_dev_shells
     # The resulting executable will be named 'setup_dev_shells'
   };

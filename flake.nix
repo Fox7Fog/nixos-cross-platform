@@ -58,6 +58,9 @@
         config.allowUnfree = true;
         overlays = [ overlays.custom ]; # Potentially different overlays for unstable
       });
+
+      # Import packages from the tools directory for each system
+      toolPkgsFor = forAllSystems (system: import ./tools { pkgs = pkgsFor.${system}; });
       
     in {
       # Custom packages (uncomment and implement ./pkgs when ready)
@@ -67,29 +70,29 @@
       
       # NixOS configurations
       nixosConfigurations = {
-        "F7F-NixOS" = lib.mkNixosSystem {
-          hostname = "F7F-NixOS";
+        NB50TH = lib.mkNixosSystem {
+          hostname = "NB50TH";
           system = "x86_64-linux";
           users = [ "fox7fog" ];
           pkgs = pkgsFor."x86_64-linux";
           flakeRoot = self;
         };
-        "dell-optiplex" = lib.mkNixosSystem {
-          hostname = "dell-optiplex";
+        HLSRV32 = lib.mkNixosSystem {
+          hostname = "HLSRV32";
           system = "x86_64-linux";
           users = [ "fox7fog" ];
           pkgs = pkgsFor."x86_64-linux";
           flakeRoot = self;
         };
-        "thinkpad-x201" = lib.mkNixosSystem {
-          hostname = "thinkpad-x201";
+        X201 = lib.mkNixosSystem {
+          hostname = "X201";
           system = "x86_64-linux";
           users = [ "fox7fog" ];
           pkgs = pkgsFor."x86_64-linux";
           flakeRoot = self;
         };
-        "hp-microserver" = lib.mkNixosSystem {
-          hostname = "hp-microserver";
+        HLSRVG8 = lib.mkNixosSystem {
+          hostname = "HLSRVG8";
           system = "x86_64-linux";
           users = [ "fox7fog" ];
           pkgs = pkgsFor."x86_64-linux";
@@ -100,7 +103,7 @@
       
       # Home Manager configurations
       homeConfigurations = {
-        "fox7fog@F7F-NixOS" = lib.mkHome {
+        "fox7fog@NB50TH" = lib.mkHome {
           username = "fox7fog";
           system = "x86_64-linux";
           pkgs = pkgsFor."x86_64-linux";
@@ -144,30 +147,78 @@
             '';
           
           # You can add other custom packages here if needed in the future
-        }
+        } // toolPkgsFor.${system} # Merge the tool packages
       );
       
       # Development shells
       devShells = forAllSystems (system: {
         default = pkgsFor.${system}.mkShell {
-          packages = with pkgsFor.${system}; [ nixd nil ];
+          packages = with pkgsFor.${system}; [ nixd nil zsh zsh-syntax-highlighting zsh-autosuggestions ];
+          shell = "zsh";
+          shellHook = ''
+            if [ -z "$ZSH_VERSION" ]; then
+              export SHELL=$(command -v zsh)
+              exec zsh -l
+            fi
+          '';
         };
         
         # Web3 Ethereum TypeScript development
-        ethereum = import ./shells/ethereum.nix { pkgs = pkgsFor.${system}; };
-        
-        # Solana Rust development
-        solana = import ./shells/solana.nix { pkgs = pkgsFor.${system}; };
-        
-        # Web development with Rust
-        web-rust = import ./shells/web-rust.nix { pkgs = pkgsFor.${system}; };
-        
-        # Python development
-        python = import ./shells/python.nix { pkgs = pkgsFor.${system}; };
-        
-        # Go development
-        go = import ./shells/go.nix { pkgs = pkgsFor.${system}; };
-      });
+        ethereum = pkgsFor.${system}.mkShell {
+          packages = with pkgsFor.${system}; [ zsh zsh-syntax-highlighting zsh-autosuggestions ];
+          shell = "zsh";
+          shellHook = ''
+            if [ -z "$ZSH_VERSION" ]; then
+              export SHELL=$(command -v zsh)
+              exec zsh -l
+            fi
+          '';
+        } // (import ./shells/ethereum.nix { pkgs = pkgsFor.${system}; });
+
+        solana = pkgsFor.${system}.mkShell {
+          packages = with pkgsFor.${system}; [ zsh zsh-syntax-highlighting zsh-autosuggestions ];
+          shell = "zsh";
+          shellHook = ''
+            if [ -z "$ZSH_VERSION" ]; then
+              export SHELL=$(command -v zsh)
+              exec zsh -l
+            fi
+          '';
+        } // (import ./shells/solana.nix { pkgs = pkgsFor.${system}; });
+
+        web-rust = pkgsFor.${system}.mkShell {
+          packages = with pkgsFor.${system}; [ zsh zsh-syntax-highlighting zsh-autosuggestions ];
+          shell = "zsh";
+          shellHook = ''
+            if [ -z "$ZSH_VERSION" ]; then
+              export SHELL=$(command -v zsh)
+              exec zsh -l
+            fi
+          '';
+        } // (import ./shells/web-rust.nix { pkgs = pkgsFor.${system}; });
+
+        python = pkgsFor.${system}.mkShell {
+          packages = with pkgsFor.${system}; [ zsh zsh-syntax-highlighting zsh-autosuggestions ];
+          shell = "zsh";
+          shellHook = ''
+            if [ -z "$ZSH_VERSION" ]; then
+              export SHELL=$(command -v zsh)
+              exec zsh -l
+            fi
+          '';
+        } // (import ./shells/python.nix { pkgs = pkgsFor.${system}; });
+
+        go = pkgsFor.${system}.mkShell {
+          packages = with pkgsFor.${system}; [ zsh zsh-syntax-highlighting zsh-autosuggestions ];
+          shell = "zsh";
+          shellHook = ''
+            if [ -z "$ZSH_VERSION" ]; then
+              export SHELL=$(command -v zsh)
+              exec zsh -l
+            fi
+          '';
+        } // (import ./shells/go.nix { pkgs = pkgsFor.${system}; });
+     });
       
       # Templates
       templates = import ./templates;

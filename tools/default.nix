@@ -6,7 +6,7 @@
     pname = "system-updater";
     version = "0.1.0"; # You can update this version as needed
     src = ./system_updater_go;
-    vendorHash = ""; # Nix will prompt for the correct hash on first build
+    vendorHash = null; # No dependencies for this module
     # Module path from its go.mod: github.com/fox7fog/nixos-cross-platform/system_updater
     # The resulting executable will be named 'system-updater'
   };

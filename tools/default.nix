@@ -6,7 +6,7 @@
     pname = "system-updater";
     version = "0.1.0"; # You can update this version as needed
     src = ./system_updater_go;
-    vendorHash = pkgs.lib.emptySha256; # Nix will prompt for the correct hash on first build
+    vendorHash = ""; # Nix will prompt for the correct hash on first build
     # Module path from its go.mod: github.com/fox7fog/nixos-cross-platform/system_updater
     # The resulting executable will be named 'system-updater'
   };
@@ -16,7 +16,7 @@
     pname = "dev-shell-manager";
     version = "0.1.0"; # You can update this version as needed
     src = ./dev_shell_manager_go;
-    vendorHash = pkgs.lib.emptySha256; # Nix will prompt for the correct hash on first build
+    vendorHash = ""; # Nix will prompt for the correct hash on first build
     # Module path from its go.mod: github.com/fox7fog/nixos-cross-platform/dev_shell_manager
     # The resulting executable will be named 'dev-shell-manager'
   };
@@ -26,7 +26,7 @@
     pname = "setup-dev-shells";
     version = "0.1.0"; # You can update this version as needed
     src = ./setup_dev_shells_go;
-    vendorHash = pkgs.lib.emptySha256; # Nix will prompt for the correct hash on first build if needed
+    vendorHash = ""; # Nix will prompt for the correct hash on first build if needed
     # The module path is github.com/fox7fog/nixos-cross-platform/setup_dev_shells
     # The resulting executable will be named 'setup_dev_shells'
   };
@@ -36,7 +36,7 @@
     pname = "dev-env-installer";
     version = "0.1.0"; # You can update this version as needed
     src = ./dev-env-installer-go; # Relative to this default.nix file
-    vendorHash = pkgs.lib.emptySha256; # Nix will prompt for the correct hash on first build
+    vendorHash = ""; # Nix will prompt for the correct hash on first build
     # Module path from its go.mod: github.com/fox7fog/nixos-cross-platform/dev-env-installer-go
     # The resulting executable will be named 'dev-env-installer'
   };
@@ -46,7 +46,7 @@
     pname = "flake-runner";
     version = "0.1.0"; # You can update this version as needed
     src = ./flake_runner_go; # Relative to this default.nix file
-    vendorHash = pkgs.lib.emptySha256; # Nix will prompt for the correct hash on first build
+    vendorHash = ""; # Nix will prompt for the correct hash on first build
     # Module path from its go.mod: github.com/fox7fog/nixos-cross-platform/flake_runner
     # The resulting executable will be named 'flake-runner'
   };

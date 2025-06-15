@@ -36,7 +36,7 @@
     pname = "dev-env-installer";
     version = "0.1.0"; # You can update this version as needed
     src = ./dev-env-installer-go; # Relative to this default.nix file
-    vendorHash = ""; # Nix will prompt for the correct hash on first build
+    vendorHash = null; # No dependencies for this module
     # Module path from its go.mod: github.com/fox7fog/nixos-cross-platform/dev-env-installer-go
     # The resulting executable will be named 'dev-env-installer'
   };
